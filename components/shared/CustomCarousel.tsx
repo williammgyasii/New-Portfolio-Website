@@ -18,7 +18,11 @@ const images = [
   "/images/portfolio-website-design.png",
 ];
 
-export default function CustomCarousel() {
+export default function CustomCarousel({
+  withDots = true,
+}: {
+  withDots?: boolean;
+}) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -91,20 +95,22 @@ export default function CustomCarousel() {
           </Button>
         </Carousel>
 
-        <div className="flex justify-center items-center space-x-2 mt-6">
-          {Array.from({ length: count }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToSlide(index)}
-              className={`h-0.5 transition-all duration-300 ${
-                index === current - 1
-                  ? "w-8 bg-white"
-                  : "w-4 bg-white/40 border-dashed border-t border-white/60"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+        {withDots && (
+          <div className="flex justify-center items-center space-x-2 mt-6">
+            {Array.from({ length: count }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToSlide(index)}
+                className={`h-0.5 transition-all duration-300 ${
+                  index === current - 1
+                    ? "w-8 bg-white"
+                    : "w-4 bg-white/40 border-dashed border-t border-white/60"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

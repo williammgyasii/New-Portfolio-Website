@@ -99,7 +99,7 @@ export default function RootLayout({
             <LoadingProvider>
               <div className="relative z-10 flex flex-col items-center w-full justify-center">
                 <Navigation />
-                <div className="pt-20 px-5 max-w-[64rem] mx-auto">
+                <div className="pt-20 px-5 max-w-[65rem] mx-auto">
                   {children}
                 </div>
               </div>
