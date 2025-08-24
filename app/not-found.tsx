@@ -1,13 +1,13 @@
 export default function NotFound() {
   return (
-    <Column as="section" fill center paddingBottom="160">
-      <Text marginBottom="s" variant="display-strong-xl">
-        404
-      </Text>
-      <Heading marginBottom="l" variant="display-default-xs">
+    <section className="flex flex-col items-center justify-center min-h-screen pb-40">
+      <h1 className="mb-2 text-6xl font-extrabold text-gray-900">404</h1>
+      <h2 className="mb-6 text-2xl font-semibold text-gray-700">
         Page Not Found
-      </Heading>
-      <Text onBackground="neutral-weak">The page you are looking for does not exist.</Text>
-    </Column>
+      </h2>
+      <p className="text-gray-500">
+        The page you are looking for does not exist.
+      </p>
+    </section>
   );
 }

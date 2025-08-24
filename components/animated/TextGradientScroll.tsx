@@ -90,7 +90,7 @@ function TextGradientScroll({
 const Word = ({ children, progress, range }: WordType) => {
   const opacity = useTransform(progress, range, [0, 1]);
   return (
-    <span className="relative me-1 mt-1 text-center">
+    <span className="relative me-[0.15px] mt-1 mx-auto text-center">
       <span style={{ position: "absolute", opacity: 0.1 }}>{children}</span>
       <motion.span
         style={{
@@ -110,7 +110,7 @@ const Letter = ({ children, progress, range }: LetterType) => {
     const amount = range[1] - range[0];
     const step = amount / children.length;
     return (
-      <span className="relative me-2 mt-2">
+      <span className="relative me-1 text-center mt-1">
         {children.split("").map((char: string, i: number) => {
           const start = range[0] + i * step;
           const end = range[0] + (i + 1) * step;

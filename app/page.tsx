@@ -50,8 +50,8 @@ From designing efficient backend architectures to crafting elegant frontend expe
                 text="Transforming complex ideas into"
                 delay={200}
               />
-              <br className="block sm:hidden" />
-              <AnimatedText text=" scalable applications." delay={1500} />
+              <br className="hidden" />
+              <AnimatedText text="scalable applications." delay={1500} />
             </div>
           </h1>
 
@@ -60,7 +60,7 @@ From designing efficient backend architectures to crafting elegant frontend expe
               <TextGradientScroll
                 text={missionStatement}
                 className="text-md md:text-xl text-center lg:text-2xl font-normal text-gray-800"
-                type="word"
+                type="letter"
                 textOpacity="soft"
               />
             </div>
