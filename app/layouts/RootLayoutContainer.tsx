@@ -10,7 +10,7 @@ export default function RootLayoutContainer({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative pb-40">
       <AnimatedBackground />
       {children}
     </div>
