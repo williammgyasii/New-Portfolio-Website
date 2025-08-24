@@ -1,3 +1,8 @@
+import { ArrowUpRight } from "lucide-react";
+import { ReactNode } from "react";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
+
 /**
  * Effects configuration for UI visuals.
  */
@@ -84,3 +89,26 @@ const effects: EffectsConfig = {
 };
 
 export const baseURL = "https://williammgyasii.com";
+
+export const socialLinks: { name: string; href: string; icon: ReactNode }[] = [
+  {
+    name: "GitHub",
+    href: "https://github.com/yourusername",
+    icon: <FaGithub className="w-5 h-5" />,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/yourusername",
+    icon: <FaLinkedin className="w-5 h-5 text-sky-600" />,
+  },
+  {
+    name: "Email",
+    href: "mailto:youremail@example.com",
+    icon: <HiOutlineMail className="w-5 h-5 text-red-500" />,
+  },
+  {
+    name: "Twitter",
+    href: "https://twitter.com/yourusername",
+    icon: <FaTwitter className="w-5 h-5 text-sky-400" />,
+  },
+];
