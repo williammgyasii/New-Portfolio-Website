@@ -10,10 +10,8 @@ export default function RootLayoutContainer({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-full h-full min-h-screen relative">
-      <ParallaxContainer speed={-0.3} className="fixed inset-0">
-        <AnimatedBackground />
-      </ParallaxContainer>
+    <div className="w-full h-full relative">
+      <AnimatedBackground />
       {children}
     </div>
   );

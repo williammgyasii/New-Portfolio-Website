@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type TextOpacityEnum = "none" | "soft" | "medium";
+type TextOpacityEnum = "none" | "soft" | "medium" | "strong";
 type ViewTypeEnum = "word" | "letter";
 
 type TextGradientScrollType = {
@@ -134,8 +134,9 @@ const Char = ({ children, progress, range }: CharType) => {
       <span
         className={cn("absolute", {
           "opacity-0": textOpacity == "none",
-          "opacity-10": textOpacity == "soft",
-          "opacity-30": textOpacity == "medium",
+          "opacity-30": textOpacity == "soft",
+          "opacity-50": textOpacity == "medium",
+          "opacity-70": textOpacity == "strong",
         })}
       >
         {children}
