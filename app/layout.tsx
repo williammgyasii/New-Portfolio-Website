@@ -4,6 +4,10 @@ import "./globals.css";
 import { person } from "./lib/content";
 import { Home } from "./types/content.types";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import RootLayoutContainer from "./layouts/RootLayoutContainer";
+import { Inter } from "next/font/google";
+import { Source_Code_Pro } from "next/font/google";
+import { baseURL } from "./lib/constants";
 
 const home: Home = {
   path: "/",
@@ -39,6 +43,25 @@ export async function generateMetadata() {
     description: home.description,
     path: home.path,
     image: home.image,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    openGraph: {
+      title: `${person.firstName}'s Portfolio`,
+      description: "Portfolio website showcasing my work.",
+      url: baseURL,
+      siteName: `${person.firstName}'s Portfolio`,
+      locale: "en_US",
+      type: "website",
+    },
   };
 }
 
@@ -48,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -58,7 +81,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="w-full h-full">{children}</div>
+          <RootLayoutContainer>{children}</RootLayoutContainer>
         </ThemeProvider>
       </body>
     </html>

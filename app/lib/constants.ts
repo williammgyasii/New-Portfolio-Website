@@ -82,3 +82,5 @@ const effects: EffectsConfig = {
     angle: 45,
   },
 };
+
+export const baseURL = "https://williammgyasii.com";
