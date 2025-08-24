@@ -67,6 +67,7 @@ export const Projects = [
     description: `Deliver sermons privately, safeguard your church’s content with
                 watermarked streams, and track member engagement with detailed
                 viewing insights — all in one secure portal.`,
+
     challengesAndLearning: {
       challenges: [
         "Ensuring seamless video playback while maintaining strong access restrictions.",
@@ -80,35 +81,10 @@ export const Projects = [
       ],
     },
 
+    outcomes: `Successfully delivered a functional MVP that provided 
+    church members with a private and reliable platform to access sermons online, built trust and increased confidence from leadership by demonstrating that sensitive content could be shared without risk of leaks, improved overall engagement by offering an easy-to-use interface with clear role-based access, and established a strong, scalable foundation designed to support future enhancements such as mobile applications, real-time live streaming, and AI-powered engagement insights.`,
+
     images: ["/images/project1-1.png", "/images/project1-2.png"],
     link: "https://example.com/project-one",
-  },
-];
-
-const keyFeatures = [
-  {
-    title: "Private Sermon Streaming",
-    description:
-      "Deliver sermons and recordings in a secure, invite-only environment. Members can log in with pre-created accounts, ensuring that access is limited to your church community only.",
-  },
-  {
-    title: "Role-Based Access",
-    description:
-      "Define clear roles such as superadmin, fellowship leader, cell leader, and member. Each role comes with tailored permissions to control who can upload, manage, or simply view content.",
-  },
-  {
-    title: "Content Protection",
-    description:
-      "Safeguard your church’s media with multiple security layers. Personalized watermarks discourage screen recording and link sharing, while expiring video links prevent unauthorized access.",
-  },
-  {
-    title: "Member Engagement Tracking",
-    description:
-      "Gain valuable insight into your community by tracking viewing patterns. See who watched a sermon, when they watched, and how long they stayed engaged to measure participation and impact.",
-  },
-  {
-    title: "Simple Admin Dashboard",
-    description:
-      "Manage all video content from a central, easy-to-use dashboard. Upload new recordings, organize them by series or events, and keep everything structured for quick access by members.",
   },
 ];

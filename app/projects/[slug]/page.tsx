@@ -4,8 +4,13 @@ import { person } from "@/app/lib/content";
 import { Projects } from "@/app/lib/projects";
 import { capitalizeFirstLetter } from "@/app/utils/string.utils";
 import AnimatedPillTags from "@/components/animated/AnimatedPill";
+import { ProjectFabCTA } from "@/components/animated/ProjectFabAction";
+import SmoothScrollHero from "@/components/animated/SmoothScrollHero";
 import CustomCarousel from "@/components/shared/CustomCarousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -53,6 +58,11 @@ export default function ProjectItem() {
             {findProjectBySlug?.subline}
           </span>
         </h1>
+        <Link href={findProjectBySlug?.link || "#"} target="_blank">
+          <Button className="text-sm md:text-base bg-white text-amber-600 shadow-lg shadow-amber-200/30 cursor-pointer font-semibold transition-opacity duration-200">
+            Visit Project <ChevronRight className="w-4 h-4" />
+          </Button>
+        </Link>
         <div className="flex flex-row items-center rounded-xl px-2 py-1">
           <Avatar>
             <AvatarImage className="object-cover" src={person.avatar} />
@@ -68,7 +78,7 @@ export default function ProjectItem() {
         <CustomCarousel withDots={false} />
       </div>
 
-      <div className="md:w-[70%] mt-12 space-y-10">
+      <div className="md:w-[75%] mt-12 space-y-10">
         <div>
           <h2 className="text-white text-2xl font-sans font-semibold mb-3">
             Overview
@@ -120,41 +130,63 @@ export default function ProjectItem() {
         <div>
           <h2 className="text-white text-2xl font-sans font-semibold mb-3">
             Challenges & Learnings
-            <div className="flex flex-col md:flex-row md:gap-10 space-x-2 mt-2">
-              <div>
-                <h5 className="border-b border-b-white">Challenges</h5>
-                <ul className="list-disc list-inside">
-                  {findProjectBySlug?.challengesAndLearning?.challenges.map(
-                    (challenge, index) => (
-                      <li
-                        key={index}
-                        className="text-white text-sm md:text-sm font-sans md:text-left mt-2 md:mt-0"
-                      >
-                        {challenge}
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-
-              <div className="mt-2 md:md-0">
-                <h5 className="border-b border-b-white">Learnings</h5>
-                <ul className="list-disc list-inside">
-                  {findProjectBySlug?.challengesAndLearning?.learning.map(
-                    (learning, index) => (
-                      <li
-                        key={index}
-                        className="text-white text-xs md:text-sm font-sans md:text-left mt-2 md:mt-0"
-                      >
-                        {learning}
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-            </div>
           </h2>
+          <div className="flex flex-col md:flex-row md:gap-10 space-x-2 mt-2">
+            <div className="mt-2 md:md-0">
+              <h5 className="border-b text-xl font-sans border-b-white">
+                Challenges
+              </h5>
+              <ul className="list-disc list-inside">
+                {findProjectBySlug?.challengesAndLearning?.challenges.map(
+                  (challenge, index) => (
+                    <li
+                      key={index}
+                      className="text-white text-sm md:text-sm font-sans md:text-left mt-2 md:mt-0"
+                    >
+                      {challenge}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+
+            <div className="mt-2 md:md-0">
+              <h3 className="border-b text-xl font-sans border-b-white">
+                Learnings
+              </h3>
+              <ul className="list-disc list-inside">
+                {findProjectBySlug?.challengesAndLearning?.learning.map(
+                  (learning, index) => (
+                    <li
+                      key={index}
+                      className="text-white text-sm md:text-sm font-sans md:text-left mt-2 md:mt-0"
+                    >
+                      {learning}
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          </div>
         </div>
+
+        <div>
+          <h2 className="text-white text-2xl font-sans font-semibold mb-3">
+            Outcome
+          </h2>
+          <p className="text-white text-sm md:text-md font-sans md:text-left mt-2 md:mt-0">
+            {findProjectBySlug?.outcomes}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-20">
+        <div className="h-1 w-[100px] bg-white shimmer  bg-gradient-to-r from-amber-300 via-sky-500 to-amber-900 [background-size:200%_100%] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60" />
+        <h2 className="text-white text-2xl font-sans font-semibold mb-3">
+          More Projects
+        </h2>
+
+       
       </div>
     </div>
   );
