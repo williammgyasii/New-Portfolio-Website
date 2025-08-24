@@ -17,6 +17,8 @@ export default function HomePage() {
   const missionStatement = `I'm William, a full-stack developer passionate about building intelligent applications that solve real problems.  
 From designing efficient backend architectures to crafting elegant frontend experiences, I focus on creating solutions that are both powerful and intuitive.`;
 
+  
+
   useEffect(() => {
     if (isContentReady) {
       const timer = setTimeout(() => {
@@ -53,7 +55,7 @@ From designing efficient backend architectures to crafting elegant frontend expe
             </div>
           </h1>
 
-          <div className="text-lg sm:text-xl text-white/70 max-w-3xl mb-5 mx-auto leading-relaxed">
+          <div className="text-lg sm:text-xl text-white/70 max-w-2xl mb-5 mx-auto leading-relaxed">
             <div style={{ visibility: startAnimation ? "visible" : "hidden" }}>
               <TextGradientScroll
                 text={missionStatement}
