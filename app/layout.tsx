@@ -8,6 +8,8 @@ import RootLayoutContainer from "./layouts/RootLayoutContainer";
 import { Inter } from "next/font/google";
 import { Source_Code_Pro } from "next/font/google";
 import { baseURL } from "./lib/constants";
+import { LoadingProvider } from "./contexts/LoadingSpinnerProvider";
+import Navigation from "@/components/shared/Navigation";
 
 const home: Home = {
   path: "/",
@@ -35,6 +37,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const primary = Inter({
+  variable: "--font-primary",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const code = Source_Code_Pro({
+  variable: "--font-code",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export async function generateMetadata() {
@@ -81,7 +95,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <RootLayoutContainer>{children}</RootLayoutContainer>
+          <RootLayoutContainer>
+            <LoadingProvider>
+              <div className="relative z-10 flex flex-col items-center w-full justify-center">
+                <Navigation />
+                <div className="pt-20 px-5 max-w-[64rem] mx-auto">
+                  {children}
+                </div>
+              </div>
+            </LoadingProvider>
+          </RootLayoutContainer>
         </ThemeProvider>
       </body>
     </html>
