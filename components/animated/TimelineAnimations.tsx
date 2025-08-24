@@ -6,13 +6,15 @@ import { useRef } from "react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-interface TimelineEntry {
-  id: number;
-  image: string;
-  alt: string;
+export interface TimelineEntry {
   title: string;
+  company: string;
+  duration: string;
   description: string;
-  layout: "left" | "right";
+  id?: number;
+  image?: string;
+  alt?: string;
+  layout?: "left" | "right";
 }
 
 interface TimelineProps {
@@ -34,7 +36,7 @@ export function Timeline({ entries, className }: TimelineProps) {
 
       {entries.map((entry, index) => (
         <TimelineItem
-          key={entry.id}
+          key={index}
           entry={entry}
           index={index}
           scrollProgress={scrollYProgress}
@@ -78,14 +80,14 @@ function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
       <div className="container mx-auto px-6">
         <div
           className={cn(
-            "grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center",
+            "grid grid-cols-1  gap-8 md:gap-16 items-center",
             {
               "md:text-right": isLeft,
             }
           )}
         >
           {/* Image */}
-          <div
+          {/* <div
             className={cn("relative", {
               "md:order-2": isLeft,
               "md:order-1": !isLeft,
@@ -93,15 +95,15 @@ function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
           >
             <div className="sticky top-20">
               <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-100">
-                <Image 
+                <Image
                   src={entry.image || "/placeholder.svg"}
-                  alt={entry.alt}
+                  alt={entry.alt as string}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/10" />
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Content */}
           <div
