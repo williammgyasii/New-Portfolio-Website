@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 export interface TimelineEntry {
   title: string;
   company: string;
   duration: string;
   description: string;
+  responsibilities?: string[];
+  country?: string;
+  countryFlag?: string;
   id?: number;
   image?: string;
   alt?: string;
@@ -29,10 +31,21 @@ export function Timeline({ entries, className }: TimelineProps) {
     offset: ["start end", "end start"],
   });
 
+  // Animate the timeline line
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
   return (
-    <div ref={containerRef} className={cn("relative", className)}>
-      {/* Central Timeline Line */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 transform -translate-x-1/2 hidden md:block" />
+    <div
+      ref={containerRef}
+      className={cn("relative max-w-4xl mx-auto md:px-8", className)}
+    >
+      {/* Timeline Line positioned on the left - only on larger screens */}
+      <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300/50 hidden md:block">
+        <motion.div
+          className="w-full bg-gradient-to-b from-blue-400 to-cyan-400"
+          style={{ height: lineHeight }}
+        />
+      </div>
 
       {entries.map((entry, index) => (
         <TimelineItem
@@ -52,8 +65,10 @@ interface TimelineItemProps {
   scrollProgress: any;
 }
 
-function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
+function TimelineItem({ entry, index }: TimelineItemProps) {
   const itemRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(itemRef, { once: true, margin: "-100px" });
+
   const { scrollYProgress: itemProgress } = useScroll({
     target: itemRef,
     offset: ["start center", "end center"],
@@ -61,76 +76,112 @@ function TimelineItem({ entry, index, scrollProgress }: TimelineItemProps) {
 
   const opacity = useTransform(
     itemProgress,
-    [0, 0.3, 0.7, 1],
-    [0.3, 1, 1, 0.3]
+    [0, 0.2, 0.8, 1],
+    [0.4, 1, 1, 0.4]
   );
-  const scale = useTransform(itemProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8]);
 
-  const isLeft = entry.layout === "left";
+  const scale = useTransform(itemProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
+
+  const y = useTransform(itemProgress, [0, 0.2, 0.8, 1], [30, 0, 0, -30]);
 
   return (
     <motion.div
       ref={itemRef}
-      style={{ opacity, scale }}
-      className="relative mb-20 md:mb-32"
+      style={{ opacity, scale, y }}
+      className="relative mb-10 md:mb-10"
     >
-      {/* Timeline Dot */}
-      <div className="absolute left-1/2 top-1/2 w-4 h-4 bg-gray-900 rounded-full transform -translate-x-1/2 -translate-y-1/2 z-10 hidden md:block" />
+      {/* Timeline Dot positioned on the left - only on larger screens */}
+      <motion.div
+        className="absolute left-8 top-6 w-3 h-3 bg-blue-400 rounded-full transform -translate-x-1/2 z-10 hidden md:block"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+      >
+        <motion.div
+          className="absolute inset-0 bg-blue-400 rounded-full"
+          animate={{ scale: [1, 1.3, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
 
-      <div className="container mx-auto px-6">
-        <div
-          className={cn(
-            "grid grid-cols-1  gap-8 md:gap-16 items-center",
-            {
-              "md:text-right": isLeft,
-            }
-          )}
-        >
-          {/* Image */}
-          {/* <div
-            className={cn("relative", {
-              "md:order-2": isLeft,
-              "md:order-1": !isLeft,
-            })}
+      {/* Content - full width on mobile, positioned to the right of timeline on desktop */}
+      <motion.div
+        className="md:ml-20"
+        initial={{ opacity: 0, x: 30 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+        transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
+      >
+        <div className="space-y-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
           >
-            <div className="sticky top-20">
-              <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-100">
-                <Image
-                  src={entry.image || "/placeholder.svg"}
-                  alt={entry.alt as string}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/10" />
+            <div className="flex  gap-3 mb-2 flex-row items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-blue-400 rounded-full" />
+                <span className="text-sm font-medium text-blue-300 uppercase tracking-wider">
+                  {entry.duration}
+                </span>
+              </div>
+
+              <div className="flex-col items-center justify-end gap-0">
+                <p className="text-base font-inter font-medium text-blue-200">
+                  {entry.company}
+                </p>
+                {entry.countryFlag && (
+                  <p className="text-xs font-inter text-end">{entry.country}</p>
+                )}
               </div>
             </div>
-          </div> */}
 
-          {/* Content */}
-          <div
-            className={cn("relative", {
-              "md:order-1": isLeft,
-              "md:order-2": !isLeft,
-            })}
-          >
-            <div className="sticky top-32">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white">
+              {entry.title}
+            </h3>
+
+            <p className="text-sm md:text-base leading-relaxed text-white/70 mb-4">
+              {entry.description}
+            </p>
+
+            {/* Responsibilities List */}
+            {entry.responsibilities && entry.responsibilities.length > 0 && (
               <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="space-y-6"
+                initial={{ opacity: 0, y: 10 }}
+                animate={
+                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }
+                }
+                transition={{ duration: 0.4, delay: index * 0.1 + 0.6 }}
+                className="space-y-2"
               >
-                <h3 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-wide text-gray-900">
-                  {entry.title}
-                </h3>
-                <p className="text-lg md:text-xl leading-relaxed text-gray-700 max-w-lg">
-                  {entry.description}
-                </p>
+                <h4 className="text-sm font-medium text-blue-200 mb-2">
+                  Key Responsibilities:
+                </h4>
+                <ul className="space-y-1">
+                  {entry.responsibilities.map((responsibility, idx) => (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={
+                        isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
+                      }
+                      transition={{
+                        duration: 0.3,
+                        delay: index * 0.1 + 0.7 + idx * 0.1,
+                      }}
+                      className="flex items-start gap-2 text-xs md:text-sm text-white/60"
+                    >
+                      <span className="text-blue-400 mt-1.5 flex-shrink-0">
+                        •
+                      </span>
+                      <span>{responsibility}</span>
+                    </motion.li>
+                  ))}
+                </ul>
               </motion.div>
-            </div>
-          </div>
+            )}
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

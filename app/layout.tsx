@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { person } from "./lib/content";
 import { Home } from "./types/content.types";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import RootLayoutContainer from "./layouts/RootLayoutContainer";
 import { Inter } from "next/font/google";
-import { Source_Code_Pro } from "next/font/google";
 import { baseURL } from "./lib/constants";
 import { LoadingProvider } from "./contexts/LoadingSpinnerProvider";
 import Navigation from "@/components/shared/Navigation";
@@ -29,26 +27,11 @@ const home: Home = {
   },
 };
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const primary = Inter({
-  variable: "--font-primary",
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-});
-
-const code = Source_Code_Pro({
-  variable: "--font-code",
-  subsets: ["latin"],
-  display: "swap",
+  variable: "--font-inter",
+  fallback: ["system-ui", "arial"],
 });
 
 export async function generateMetadata() {
@@ -86,9 +69,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -99,7 +92,7 @@ export default function RootLayout({
             <LoadingProvider>
               <div className="relative z-10 flex flex-col items-center w-full justify-center">
                 <Navigation />
-                <div className="pt-20 px-5 max-w-[65rem] mx-auto">
+                <div className="pt-20 px-4 w-full max-w-[65rem] mx-auto">
                   {children}
                 </div>
               </div>

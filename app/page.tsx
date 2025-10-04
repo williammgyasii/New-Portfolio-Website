@@ -57,7 +57,7 @@ From designing efficient backend architectures to crafting elegant frontend expe
   }, [api]);
 
   return (
-    <section className="flex flex-col items-center">
+    <section className="flex flex-col items-center w-fafda">
       <div className="flex flex-col items-center space-y-3 justify-center text-center">
         {/* Navigation Pills */}
         <div
