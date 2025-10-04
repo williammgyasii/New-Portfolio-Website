@@ -13,6 +13,7 @@ export const Projects = [
     slug: "shepherdstream",
     name: "SheperdStream",
     subline: "Private Sermon Streaming for Churches",
+    category: "fullstack",
     technologies: [
       { name: "Next.js", icon: <SiNextdotjs className="w-6 h-6" /> },
       { name: "React", icon: <FaReact className="w-6 h-6 text-sky-400" /> },
@@ -86,5 +87,126 @@ export const Projects = [
 
     images: ["/images/project1-1.png", "/images/project1-2.png"],
     link: "https://example.com/project-one",
+  },
+  {
+    id: 2,
+    slug: "ecommerce-platform",
+    name: "E-Commerce Platform",
+    subline: "Modern Online Shopping Experience",
+    category: "web",
+    technologies: [
+      { name: "React", icon: <FaReact className="w-6 h-6 text-sky-400" /> },
+      {
+        name: "Node.js",
+        icon: <FaNodeJs className="w-6 h-6 text-green-500" />,
+      },
+      {
+        name: "MongoDB",
+        icon: <SiPostgresql className="w-6 h-6 text-sky-700" />,
+      },
+      {
+        name: "Stripe",
+        icon: <SiTypescript className="w-6 h-6 text-blue-500" />,
+      },
+      {
+        name: "Tailwind CSS",
+        icon: <SiTailwindcss className="w-6 h-6 text-cyan-400" />,
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "User Authentication",
+        description: "Secure login and registration system with JWT tokens",
+      },
+      {
+        title: "Payment Processing",
+        description:
+          "Integrated Stripe payment gateway for secure transactions",
+      },
+      {
+        title: "Inventory Management",
+        description: "Real-time stock tracking and product management",
+      },
+      {
+        title: "Admin Dashboard",
+        description: "Comprehensive admin panel for order and user management",
+      },
+    ],
+    description:
+      "A full-stack e-commerce platform built with modern technologies, featuring secure payments, real-time inventory management, and an intuitive user interface.",
+    challengesAndLearning: {
+      challenges: [
+        "Implementing secure payment processing with Stripe",
+        "Optimizing database queries for large product catalogs",
+        "Creating responsive design for all device types",
+      ],
+      learning: [
+        "Mastered payment gateway integration and security best practices",
+        "Learned advanced database optimization techniques",
+        "Improved skills in responsive design and user experience",
+      ],
+    },
+    outcomes:
+      "Successfully launched an e-commerce platform that processed over $100K in transactions within the first month, with 99.9% uptime and positive user feedback.",
+    images: ["/images/e-commerce-website-layout.png"],
+    link: "https://example.com/ecommerce",
+  },
+  {
+    id: 3,
+    slug: "mobile-banking-app",
+    name: "Mobile Banking App",
+    subline: "Secure Financial Management",
+    category: "mobile",
+    technologies: [
+      {
+        name: "React Native",
+        icon: <FaReact className="w-6 h-6 text-sky-400" />,
+      },
+      {
+        name: "TypeScript",
+        icon: <SiTypescript className="w-6 h-6 text-blue-500" />,
+      },
+      {
+        name: "Firebase",
+        icon: <SiAwsamplify className="w-6 h-6 text-yellow-400" />,
+      },
+      { name: "Biometric Auth", icon: <SiNextdotjs className="w-6 h-6" /> },
+    ],
+    keyFeatures: [
+      {
+        title: "Biometric Authentication",
+        description: "Face ID and Touch ID integration for secure access",
+      },
+      {
+        title: "Real-time Transactions",
+        description: "Instant money transfers and payment processing",
+      },
+      {
+        title: "Budget Tracking",
+        description: "Comprehensive financial analytics and spending insights",
+      },
+      {
+        title: "Offline Support",
+        description: "Core features available without internet connection",
+      },
+    ],
+    description:
+      "A secure mobile banking application with biometric authentication, real-time transactions, and comprehensive financial tracking capabilities.",
+    challengesAndLearning: {
+      challenges: [
+        "Implementing secure biometric authentication",
+        "Ensuring data privacy and regulatory compliance",
+        "Creating smooth offline functionality",
+      ],
+      learning: [
+        "Mastered mobile security best practices and biometric integration",
+        "Learned about financial regulations and compliance requirements",
+        "Improved skills in offline-first mobile development",
+      ],
+    },
+    outcomes:
+      "Delivered a secure banking app with zero security incidents, 4.8/5 user rating, and 50% reduction in customer support tickets.",
+    images: ["/images/mobile-app-interface.png"],
+    link: "https://example.com/banking-app",
   },
 ];

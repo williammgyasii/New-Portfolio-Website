@@ -47,6 +47,7 @@ const navigationLinks: NavigationProps[] = [
     path: "/blog",
   },
 ];
+
 export default function Navigation() {
   const pathname = usePathname();
   const { scrollY } = useScroll();

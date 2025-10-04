@@ -5,214 +5,171 @@ import { useLoading } from "../contexts/LoadingSpinnerProvider";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
-  ExternalLink,
-  Github,
+  Briefcase,
   Calendar,
-  Code,
-  Palette,
-  Database,
-  Globe,
-  Smartphone,
-  Monitor,
-  Zap,
+  MapPin,
+  Building,
+  Users,
+  Award,
+  TrendingUp,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface Project {
+interface WorkExperience {
   id: number;
   title: string;
+  company: string;
+  duration: string;
+  location: string;
+  type: "full-time" | "contract" | "freelance" | "internship";
   description: string;
-  longDescription: string;
-  image: string;
+  responsibilities: string[];
+  achievements: string[];
   technologies: string[];
-  category: "web" | "mobile" | "fullstack" | "design";
-  status: "completed" | "in-progress" | "archived";
-  year: string;
-  githubUrl?: string;
-  liveUrl?: string;
-  features: string[];
-  challenges: string[];
-  results: string[];
+  companySize: string;
+  industry: string;
+  startDate: string;
+  endDate?: string;
+  current: boolean;
 }
 
-const projects: Project[] = [
+const workExperiences: WorkExperience[] = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution with advanced features",
-    longDescription:
-      "Built a comprehensive e-commerce platform from scratch using modern technologies. Features include user authentication, payment processing, inventory management, and admin dashboard.",
-    image: "/images/e-commerce-website-layout.png",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe", "Tailwind CSS"],
-    category: "fullstack",
-    status: "completed",
-    year: "2024",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com",
-    features: [
-      "User authentication and authorization",
-      "Payment processing with Stripe",
-      "Real-time inventory management",
-      "Admin dashboard with analytics",
-      "Responsive design for all devices",
+    title: "Senior Full Stack Developer",
+    company: "Intuitive Analytica",
+    duration: "May 2025 - Present",
+    location: "Remote",
+    type: "full-time",
+    companySize: "50-100 employees",
+    industry: "Analytics & Data Science",
+    startDate: "2025-05-01",
+    current: true,
+    description:
+      "Leading development of enterprise-grade analytics platforms and mentoring junior developers in modern web technologies.",
+    responsibilities: [
+      "Led a team of 5 developers in building enterprise-grade web applications",
+      "Architected and implemented microservices using Node.js and Express",
+      "Developed responsive React frontends with TypeScript and modern state management",
+      "Established CI/CD pipelines using GitHub Actions and Docker",
+      "Mentored junior developers and conducted code reviews",
+      "Collaborated with product managers to define technical requirements",
+      "Implemented automated testing strategies and performance optimization",
     ],
-    challenges: [
-      "Implementing secure payment processing",
-      "Optimizing database queries for performance",
-      "Creating intuitive admin interface",
+    achievements: [
+      "Reduced application load time by 60% through performance optimization",
+      "Increased team productivity by 40% through improved development processes",
+      "Successfully delivered 3 major product releases on schedule",
+      "Implemented security best practices resulting in zero security incidents",
     ],
-    results: [
-      "40% increase in conversion rate",
-      "99.9% uptime achieved",
-      "Reduced page load time by 60%",
+    technologies: [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "AWS",
+      "GraphQL",
     ],
   },
   {
     id: 2,
-    title: "Mobile Banking App",
+    title: "Full Stack Developer",
+    company: "Web Innovations",
+    duration: "Jun 2019 - Dec 2021",
+    location: "Toronto, Canada",
+    type: "full-time",
+    companySize: "20-50 employees",
+    industry: "Web Development",
+    startDate: "2019-06-01",
+    endDate: "2021-12-31",
+    current: false,
     description:
-      "Secure mobile banking application with biometric authentication",
-    longDescription:
-      "Developed a secure mobile banking application with advanced security features including biometric authentication, real-time transactions, and comprehensive financial tracking.",
-    image: "/images/mobile-app-interface.png",
-    technologies: ["React Native", "TypeScript", "Firebase", "Biometric Auth"],
-    category: "mobile",
-    status: "completed",
-    year: "2024",
-    githubUrl: "https://github.com",
-    features: [
-      "Biometric authentication (Face ID, Touch ID)",
-      "Real-time transaction processing",
-      "Budget tracking and analytics",
-      "Secure data encryption",
-      "Offline transaction support",
+      "Developed and maintained client-side applications with a focus on performance and user experience. Collaborated with designers to create responsive UI components.",
+    responsibilities: [
+      "Built and maintained React applications serving 100K+ daily users",
+      "Optimized application performance, reducing load times by 40%",
+      "Implemented responsive designs using CSS-in-JS and styled-components",
+      "Integrated RESTful APIs and GraphQL endpoints",
+      "Collaborated with UX/UI designers to create intuitive user interfaces",
+      "Participated in agile development processes and sprint planning",
+      "Contributed to architectural decisions and technical documentation",
     ],
-    challenges: [
-      "Implementing secure biometric authentication",
-      "Ensuring data privacy and compliance",
-      "Creating smooth offline functionality",
+    achievements: [
+      "Improved user engagement by 25% through UI/UX enhancements",
+      "Reduced bug reports by 30% through improved testing practices",
+      "Successfully migrated legacy applications to modern React architecture",
+      "Mentored 2 junior developers and helped them grow their skills",
     ],
-    results: [
-      "Zero security breaches",
-      "4.8/5 user rating",
-      "50% reduction in support tickets",
+    technologies: [
+      "React",
+      "JavaScript",
+      "CSS-in-JS",
+      "GraphQL",
+      "MongoDB",
+      "Jest",
+      "Webpack",
     ],
   },
   {
     id: 3,
-    title: "Design System Library",
-    description: "Comprehensive design system for consistent UI development",
-    longDescription:
-      "Created a comprehensive design system library that ensures consistency across all products. Includes components, tokens, and documentation for seamless development.",
-    image: "/images/modern-design-system-interface-with-dark-theme.png",
-    technologies: ["React", "Storybook", "Figma", "TypeScript"],
-    category: "design",
-    status: "completed",
-    year: "2023",
-    githubUrl: "https://github.com",
-    liveUrl: "https://design-system.example.com",
-    features: [
-      "50+ reusable components",
-      "Dark and light theme support",
-      "Comprehensive documentation",
-      "Accessibility compliance (WCAG 2.1)",
-      "Automated testing and validation",
-    ],
-    challenges: [
-      "Creating consistent component API",
-      "Ensuring accessibility standards",
-      "Maintaining design tokens",
-    ],
-    results: [
-      "75% faster development time",
-      "Consistent UI across 10+ products",
-      "Reduced design debt by 80%",
-    ],
-  },
-  {
-    id: 4,
-    title: "Analytics Dashboard",
+    title: "Junior Developer",
+    company: "Startup Hub",
+    duration: "Jan 2018 - May 2019",
+    location: "London, UK",
+    type: "full-time",
+    companySize: "10-20 employees",
+    industry: "Startup Incubator",
+    startDate: "2018-01-01",
+    endDate: "2019-05-31",
+    current: false,
     description:
-      "Real-time analytics dashboard with advanced data visualization",
-    longDescription:
-      "Built a powerful analytics dashboard that provides real-time insights into business metrics. Features interactive charts, custom reports, and automated alerts.",
-    image: "/images/modern-web-design-dashboard.png",
-    technologies: ["Next.js", "D3.js", "PostgreSQL", "Redis", "Docker"],
-    category: "web",
-    status: "completed",
-    year: "2023",
-    githubUrl: "https://github.com",
-    liveUrl: "https://analytics.example.com",
-    features: [
-      "Real-time data visualization",
-      "Custom report generation",
-      "Automated alert system",
-      "Data export capabilities",
-      "Multi-tenant architecture",
+      "Assisted in the development of MVPs for various startups. Gained experience in full-stack development and agile methodologies.",
+    responsibilities: [
+      "Developed MVP features using React, Node.js, and MongoDB",
+      "Assisted in database design and API development",
+      "Participated in daily standups and sprint retrospectives",
+      "Learned modern development tools and version control with Git",
+      "Contributed to code documentation and testing procedures",
+      "Worked closely with senior developers to improve coding skills",
+      "Collaborated with product teams to understand business requirements",
     ],
-    challenges: [
-      "Handling large datasets efficiently",
-      "Creating responsive data visualizations",
-      "Implementing real-time updates",
+    achievements: [
+      "Successfully delivered 5 MVP projects for different startups",
+      "Improved code quality by implementing ESLint and Prettier",
+      "Completed 3 months of intensive React and Node.js training",
+      "Received positive feedback from senior developers and project managers",
     ],
-    results: [
-      "90% faster data processing",
-      "Real-time insights for 1000+ users",
-      "Reduced manual reporting by 85%",
-    ],
-  },
-  {
-    id: 5,
-    title: "Portfolio Website",
-    description: "Modern portfolio website with advanced animations",
-    longDescription:
-      "Designed and developed a modern portfolio website showcasing professional work with smooth animations, responsive design, and optimal performance.",
-    image: "/images/portfolio-website-design.png",
-    technologies: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
-    category: "web",
-    status: "completed",
-    year: "2024",
-    githubUrl: "https://github.com",
-    liveUrl: "https://williamgyasi.com",
-    features: [
-      "Smooth scroll animations",
-      "Responsive design",
-      "Dark/light theme toggle",
-      "Optimized performance",
-      "SEO optimized",
-    ],
-    challenges: [
-      "Creating smooth animations",
-      "Optimizing for performance",
-      "Ensuring accessibility",
-    ],
-    results: [
-      "95+ Lighthouse score",
-      "Sub-2s load time",
-      "Fully accessible design",
+    technologies: [
+      "React",
+      "Node.js",
+      "MongoDB",
+      "JavaScript",
+      "Git",
+      "Agile",
+      "REST APIs",
     ],
   },
 ];
 
-const categories = [
-  { id: "all", label: "All Projects", icon: Globe },
-  { id: "web", label: "Web Apps", icon: Monitor },
-  { id: "mobile", label: "Mobile Apps", icon: Smartphone },
-  { id: "fullstack", label: "Full Stack", icon: Database },
-  { id: "design", label: "Design Systems", icon: Palette },
+const experienceTypes = [
+  { id: "all", label: "All Experience", icon: Briefcase },
+  { id: "full-time", label: "Full Time", icon: Building },
+  { id: "contract", label: "Contract", icon: Clock },
+  { id: "freelance", label: "Freelance", icon: Users },
 ];
 
 export default function WorkPage() {
   const [startAnimation, setStartAnimation] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedType, setSelectedType] = useState("all");
   const { isContentReady } = useLoading();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const filteredProjects =
-    selectedCategory === "all"
-      ? projects
-      : projects.filter((project) => project.category === selectedCategory);
+  const filteredExperiences = workExperiences.filter(
+    (experience) => selectedType === "all" || experience.type === selectedType
+  );
 
   useEffect(() => {
     if (isContentReady) {
@@ -238,9 +195,9 @@ export default function WorkPage() {
           animate={startAnimation ? { scale: 1 } : { scale: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Code className="w-6 h-6 text-blue-400" />
+          <Briefcase className="w-6 h-6 text-blue-400" />
           <span className="text-sm font-medium text-blue-300 uppercase tracking-wider">
-            Featured Work
+            Professional Experience
           </span>
         </motion.div>
 
@@ -252,7 +209,7 @@ export default function WorkPage() {
           }
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          My Projects
+          Work Experience
         </motion.h1>
 
         <motion.p
@@ -263,104 +220,85 @@ export default function WorkPage() {
           }
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          A collection of projects that showcase my skills in full-stack
-          development, mobile app development, and design systems.
+          A journey through my professional career, showcasing growth,
+          achievements, and the technologies I&apos;ve mastered along the way.
         </motion.p>
       </motion.div>
 
-      {/* Category Filter */}
+      {/* Experience Type Filter */}
       <motion.div
         className="flex flex-wrap justify-center gap-3 mb-12"
         initial={{ opacity: 0, y: 20 }}
         animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 1 }}
       >
-        {categories.map((category, index) => {
-          const Icon = category.icon;
-          return (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={
-                startAnimation
-                  ? { opacity: 1, scale: 1 }
-                  : { opacity: 0, scale: 0.8 }
-              }
-              transition={{ duration: 0.4, delay: 1.2 + index * 0.1 }}
+        {experienceTypes.map((type, index) => (
+          <motion.div
+            key={type.id}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={
+              startAnimation
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.8 }
+            }
+            transition={{ duration: 0.4, delay: 1.2 + index * 0.1 }}
+          >
+            <Button
+              onClick={() => setSelectedType(type.id)}
+              variant={selectedType === type.id ? "default" : "outline"}
+              className={`flex items-center gap-2 transition-all duration-300 ${
+                selectedType === type.id
+                  ? "bg-blue-500 text-white border-blue-500"
+                  : "bg-transparent text-white/70 border-white/20 hover:border-blue-400 hover:text-blue-400"
+              }`}
             >
-              <Button
-                onClick={() => setSelectedCategory(category.id)}
-                variant={
-                  selectedCategory === category.id ? "default" : "outline"
-                }
-                className={`flex items-center gap-2 transition-all duration-300 ${
-                  selectedCategory === category.id
-                    ? "bg-blue-500 text-white border-blue-500"
-                    : "bg-transparent text-white/70 border-white/20 hover:border-blue-400 hover:text-blue-400"
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {category.label}
-              </Button>
-            </motion.div>
-          );
-        })}
+              <type.icon className="w-4 h-4" />
+              {type.label}
+            </Button>
+          </motion.div>
+        ))}
       </motion.div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProjects.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
+      {/* Experience Timeline */}
+      <div className="space-y-8">
+        {filteredExperiences.map((experience, index) => (
+          <WorkExperienceCard
+            key={experience.id}
+            experience={experience}
             index={index}
-            startAnimation={startAnimation}
           />
         ))}
       </div>
+
+      {/* No Results */}
+      {filteredExperiences.length === 0 && (
+        <motion.div
+          className="text-center py-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Briefcase className="w-16 h-16 text-white/20 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-white mb-2">
+            No experience found
+          </h3>
+          <p className="text-white/60">
+            Try selecting a different experience type.
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }
 
-interface ProjectCardProps {
-  project: Project;
+interface WorkExperienceCardProps {
+  experience: WorkExperience;
   index: number;
-  startAnimation: boolean;
 }
 
-function ProjectCard({ project, index, startAnimation }: ProjectCardProps) {
+function WorkExperienceCard({ experience, index }: WorkExperienceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "completed":
-        return "text-green-400 bg-green-400/10";
-      case "in-progress":
-        return "text-yellow-400 bg-yellow-400/10";
-      case "archived":
-        return "text-gray-400 bg-gray-400/10";
-      default:
-        return "text-blue-400 bg-blue-400/10";
-    }
-  };
-
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "web":
-        return Monitor;
-      case "mobile":
-        return Smartphone;
-      case "fullstack":
-        return Database;
-      case "design":
-        return Palette;
-      default:
-        return Globe;
-    }
-  };
-
-  const CategoryIcon = getCategoryIcon(project.category);
 
   return (
     <motion.div
@@ -372,88 +310,124 @@ function ProjectCard({ project, index, startAnimation }: ProjectCardProps) {
       className="group"
     >
       <Card className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 overflow-hidden">
-        <CardContent className="p-0">
-          {/* Project Image */}
-          <div className="relative overflow-hidden">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <CardContent className="p-8">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
+                  {experience.title}
+                </h3>
+                {experience.current && (
+                  <span className="px-2 py-1 bg-green-500/20 text-green-300 text-xs rounded-full font-medium">
+                    Current
+                  </span>
+                )}
+              </div>
 
-            {/* Status Badge */}
-            <div className="absolute top-4 left-4">
-              <span
-                className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                  project.status
-                )}`}
-              >
-                {project.status.replace("-", " ")}
-              </span>
-            </div>
+              <div className="flex items-center gap-2 mb-2">
+                <Building className="w-4 h-4 text-blue-400" />
+                <span className="text-lg font-semibold text-blue-300">
+                  {experience.company}
+                </span>
+              </div>
 
-            {/* Category Icon */}
-            <div className="absolute top-4 right-4">
-              <div className="w-8 h-8 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-                <CategoryIcon className="w-4 h-4 text-white" />
+              <div className="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-4">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3" />
+                  {experience.duration}
+                </div>
+                <div className="flex items-center gap-1">
+                  <MapPin className="w-3 h-3" />
+                  {experience.location}
+                </div>
+                <div className="flex items-center gap-1">
+                  <Users className="w-3 h-3" />
+                  {experience.companySize}
+                </div>
+                <div className="flex items-center gap-1">
+                  <TrendingUp className="w-3 h-3" />
+                  {experience.industry}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Project Content */}
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors duration-300">
-                {project.title}
-              </h3>
-              <span className="text-sm text-white/60">{project.year}</span>
-            </div>
+          {/* Description */}
+          <p className="text-white/80 mb-6 leading-relaxed">
+            {experience.description}
+          </p>
 
-            <p className="text-white/70 text-sm mb-4 line-clamp-2">
-              {project.description}
-            </p>
-
-            {/* Technologies */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.technologies.slice(0, 3).map((tech, idx) => (
-                <span
+          {/* Responsibilities */}
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-blue-400" />
+              Key Responsibilities
+            </h4>
+            <ul className="space-y-2">
+              {experience.responsibilities.map((responsibility, idx) => (
+                <motion.li
                   key={idx}
-                  className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded-full"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={
+                    isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                  }
+                  transition={{ duration: 0.4, delay: 0.2 + idx * 0.1 }}
+                  className="flex items-start gap-2 text-white/70"
+                >
+                  <span className="text-blue-400 mt-1">•</span>
+                  <span>{responsibility}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Achievements */}
+          <div className="mb-6">
+            <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+              <Award className="w-4 h-4 text-yellow-400" />
+              Key Achievements
+            </h4>
+            <ul className="space-y-2">
+              {experience.achievements.map((achievement, idx) => (
+                <motion.li
+                  key={idx}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={
+                    isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+                  }
+                  transition={{ duration: 0.4, delay: 0.4 + idx * 0.1 }}
+                  className="flex items-start gap-2 text-white/70"
+                >
+                  <span className="text-yellow-400 mt-1">★</span>
+                  <span>{achievement}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Technologies */}
+          <div>
+            <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-green-400" />
+              Technologies Used
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {experience.technologies.map((tech, idx) => (
+                <motion.span
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={
+                    isInView
+                      ? { opacity: 1, scale: 1 }
+                      : { opacity: 0, scale: 0.8 }
+                  }
+                  transition={{ duration: 0.3, delay: 0.6 + idx * 0.05 }}
+                  className="px-3 py-1 bg-white/10 text-white/80 text-sm rounded-full border border-white/20 hover:border-blue-400 hover:text-blue-300 transition-all duration-300"
                 >
                   {tech}
-                </span>
+                </motion.span>
               ))}
-              {project.technologies.length > 3 && (
-                <span className="px-2 py-1 bg-white/10 text-white/60 text-xs rounded-full">
-                  +{project.technologies.length - 3}
-                </span>
-              )}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex gap-2">
-              {project.liveUrl && (
-                <Button
-                  size="sm"
-                  className="flex-1 bg-blue-500 hover:bg-blue-600 text-white"
-                  onClick={() => window.open(project.liveUrl, "_blank")}
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Live Demo
-                </Button>
-              )}
-              {project.githubUrl && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="flex-1 border-white/20 text-white hover:border-blue-400 hover:text-blue-400"
-                  onClick={() => window.open(project.githubUrl, "_blank")}
-                >
-                  <Github className="w-4 h-4 mr-2" />
-                  Code
-                </Button>
-              )}
             </div>
           </div>
         </CardContent>
