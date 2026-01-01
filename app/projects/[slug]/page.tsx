@@ -2,7 +2,7 @@
 import { useLoading } from "@/app/contexts/LoadingSpinnerProvider";
 import { person } from "@/lib/content";
 import { Projects } from "@/lib/projects";
-import { capitalizeFirstLetter } from "@/app/utils/string.utils";
+import { capitalizeFirstLetter } from "@/utils/string.utils";
 import AnimatedPillTags from "@/components/animated/AnimatedPill";
 import { ProjectFabCTA } from "@/components/animated/ProjectFabAction";
 import SmoothScrollHero from "@/components/animated/SmoothScrollHero";

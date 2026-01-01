@@ -1,4 +1,4 @@
-import { Person } from "../app/types/content.types";
+import { Person } from "@/types/content.types";
 
 const person: Person = {
   firstName: "William",
