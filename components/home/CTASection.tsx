@@ -2,37 +2,49 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { ctaContent } from "@/lib/home.constants";
 
 export function CTASection() {
   return (
     <motion.section
-      className="relative z-10 px-4 py-20"
+      className="relative z-10 px-4 py-24"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
     >
       <div className="max-w-3xl mx-auto text-center">
         <motion.div
-          className="p-12 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 backdrop-blur-sm relative overflow-hidden"
-          whileHover={{ borderColor: "rgba(255,255,255,0.2)" }}
+          className="p-12 md:p-16 rounded-3xl bg-[#0d1a2d] border border-[#1e3a5f]/50 relative overflow-hidden"
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
+          viewport={{ once: true }}
+          whileHover={{ borderColor: "rgba(56, 189, 248, 0.3)" }}
+          transition={{ duration: 0.3 }}
         >
-          {/* Background gradient accent */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5" />
+          {/* Subtle glow */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-sky-500/10 blur-[100px] rounded-full" />
 
           <div className="relative z-10">
+            {/* Icon */}
+            <motion.div
+              className="inline-flex p-4 rounded-2xl bg-sky-500/10 border border-sky-500/20 mb-6"
+              whileHover={{ scale: 1.05, rotate: 5 }}
+            >
+              <Mail className="w-6 h-6 text-sky-400" />
+            </motion.div>
+
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               {ctaContent.title.split("amazing")[0]}
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                amazing
-              </span>
+              <span className="text-sky-400">amazing</span>
               {ctaContent.title.split("amazing")[1]}
             </h2>
-            <p className="text-white/60 mb-8">{ctaContent.description}</p>
+            <p className="text-white/50 mb-8 max-w-md mx-auto">
+              {ctaContent.description}
+            </p>
             <motion.a
               href={`mailto:${ctaContent.email}`}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-full"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-sky-500 hover:bg-sky-400 text-white font-semibold rounded-full transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -45,4 +57,3 @@ export function CTASection() {
     </motion.section>
   );
 }
-

@@ -28,13 +28,13 @@ export function HeroSection() {
           whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.2)" }}
         >
           <motion.div
-            animate={{ rotate: [0, 15, -15, 0] }}
+            animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <Sparkles className="w-4 h-4 text-yellow-400" />
+            <Sparkles className="w-4 h-4 text-sky-400" />
           </motion.div>
           <span className="text-sm text-white/70">{heroContent.badge}</span>
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
         </motion.div>
       </motion.div>
 
@@ -48,12 +48,11 @@ export function HeroSection() {
         >
           <span className="block text-white">{heroContent.headline.line1}</span>
           <motion.span
-            className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+            className="block text-sky-400"
             animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              color: ["#38bdf8", "#0ea5e9", "#0284c7", "#0ea5e9", "#38bdf8"],
             }}
-            transition={{ duration: 5, repeat: Infinity }}
-            style={{ backgroundSize: "200% 200%" }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             {heroContent.headline.line2}
           </motion.span>
@@ -61,7 +60,7 @@ export function HeroSection() {
         </motion.h1>
 
         <motion.p
-          className="mt-8 text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed"
+          className="mt-8 text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -79,25 +78,25 @@ export function HeroSection() {
       >
         <motion.button
           onClick={() => router.push("/projects")}
-          className="group relative px-8 py-4 bg-white text-gray-900 font-semibold rounded-full overflow-hidden"
+          className="group relative px-8 py-4 bg-sky-500 text-white font-semibold rounded-full overflow-hidden"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span className="relative z-10 flex items-center gap-2">
-            {heroContent.cta.primary}
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </span>
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400"
+            className="absolute inset-0 bg-sky-400"
             initial={{ x: "-100%" }}
             whileHover={{ x: 0 }}
             transition={{ duration: 0.3 }}
           />
+          <span className="relative z-10 flex items-center gap-2">
+            {heroContent.cta.primary}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </span>
         </motion.button>
 
         <motion.button
           onClick={() => router.push("/about")}
-          className="group px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-colors"
+          className="group px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 hover:border-white/30 transition-all"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -116,15 +115,14 @@ export function HeroSection() {
         transition={{ delay: 1.5 }}
       >
         <motion.div
-          className="flex flex-col items-center gap-2 text-white/40"
+          className="flex flex-col items-center gap-2 text-white/30"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-10 bg-gradient-to-b from-white/40 to-transparent" />
+          <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
         </motion.div>
       </motion.div>
     </motion.section>
   );
 }
-

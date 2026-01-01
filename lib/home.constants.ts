@@ -90,3 +90,138 @@ export const projectImages = {
   default: "https://picsum.photos/seed/project/800/600",
 };
 
+/**
+ * Tech stack categories
+ */
+export interface TechItem {
+  name: string;
+  icon?: string;
+}
+
+export interface TechCategory {
+  category: string;
+  items: TechItem[];
+}
+
+export const techStack: TechCategory[] = [
+  {
+    category: "Frontend",
+    items: [
+      { name: "React" },
+      { name: "Next.js" },
+      { name: "TypeScript" },
+      { name: "JavaScript" },
+      { name: "Tailwind CSS" },
+      { name: "Framer Motion" },
+      { name: "Redux" },
+      { name: "Zustand" },
+    ],
+  },
+  {
+    category: "Backend",
+    items: [
+      { name: "Node.js" },
+      { name: "Express" },
+      { name: "tRPC" },
+      { name: "PostgreSQL" },
+      { name: "MongoDB" },
+      { name: "Prisma" },
+      { name: "REST APIs" },
+      { name: "GraphQL" },
+    ],
+  },
+  {
+    category: "Cloud & Tools",
+    items: [
+      { name: "AWS" },
+      { name: "Vercel" },
+      { name: "Docker" },
+      { name: "Git" },
+      { name: "GitHub" },
+      { name: "Figma" },
+      { name: "Jest" },
+      { name: "CI/CD" },
+    ],
+  },
+];
+
+/**
+ * Brief work experience for homepage
+ */
+export interface WorkHighlight {
+  role: string;
+  company: string;
+  period: string;
+  highlight: string;
+}
+
+export const workHighlights: WorkHighlight[] = [
+  {
+    role: "Full-Stack Developer",
+    company: "Intuitive Analytica",
+    period: "2025 - Present",
+    highlight: "Building an in-house Call CRM platform with Next.js and tRPC",
+  },
+  {
+    role: "Full-Stack Developer",
+    company: "Penny-Pilot",
+    period: "2024 - 2025",
+    highlight: "Developed AI-powered budgeting tool, improved engagement by 35%",
+  },
+  {
+    role: "Frontend Developer",
+    company: "Asquii LLC",
+    period: "2021 - 2023",
+    highlight: "Led SchoolDesk development used by 200+ schools",
+  },
+];
+
+/**
+ * Testimonials from clients
+ */
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+  avatar?: string;
+}
+
+export const testimonials: Testimonial[] = [
+  {
+    quote: "William delivered exceptional work on our platform. His attention to detail and ability to translate complex requirements into elegant solutions exceeded our expectations.",
+    author: "Sarah Chen",
+    role: "CTO",
+    company: "TechStart Inc",
+    avatar: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    quote: "Working with William was a game-changer for our project. He brought both technical expertise and creative problem-solving that helped us launch ahead of schedule.",
+    author: "Michael Roberts",
+    role: "Founder",
+    company: "Digital Ventures",
+    avatar: "https://i.pravatar.cc/100?img=3",
+  },
+  {
+    quote: "Highly skilled developer who understands both the technical and business side. William's contributions were instrumental in our product's success.",
+    author: "Emily Zhang",
+    role: "Product Manager",
+    company: "CloudScale",
+    avatar: "https://i.pravatar.cc/100?img=5",
+  },
+];
+
+/**
+ * About section quick info
+ */
+export const aboutSnippet = {
+  greeting: "Hi, I'm William 👋",
+  bio: "A passionate full-stack developer based in Maryland, USA. I specialize in building web applications that are not only functional but also delightful to use. When I'm not coding, you'll find me exploring new technologies, contributing to open source, or enjoying a good cup of coffee.",
+  highlights: [
+    "5+ years of professional experience",
+    "Worked with startups and enterprises",
+    "Passionate about clean code & great UX",
+    "Always learning, always building",
+  ],
+};
+

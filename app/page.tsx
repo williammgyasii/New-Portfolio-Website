@@ -7,6 +7,11 @@ import {
   ProjectsGrid,
   StatsSection,
   CTASection,
+  ServicesSection,
+  TechStackSection,
+  ExperienceSection,
+  // TestimonialsSection,
+  AboutSection,
 } from "@/components/home";
 
 export default function HomePage() {
@@ -26,8 +31,23 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* About Me Snippet */}
+      <AboutSection />
+
+      {/* Services/What I Do */}
+      <ServicesSection />
+
       {/* Featured Projects */}
       <ProjectsGrid />
+
+      {/* Tech Stack */}
+      <TechStackSection />
+
+      {/* Work Experience */}
+      <ExperienceSection />
+
+      {/* Testimonials - Coming Soon */}
+      {/* <TestimonialsSection /> */}
 
       {/* Stats Section */}
       <StatsSection />

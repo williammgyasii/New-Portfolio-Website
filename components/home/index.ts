@@ -3,4 +3,8 @@ export { GradientOrbs } from "./GradientOrbs";
 export { ProjectsGrid } from "./ProjectsGrid";
 export { StatsSection } from "./StatsSection";
 export { CTASection } from "./CTASection";
-
+export { ServicesSection } from "./ServicesSection";
+export { TechStackSection } from "./TechStackSection";
+export { ExperienceSection } from "./ExperienceSection";
+export { TestimonialsSection } from "./TestimonialsSection";
+export { AboutSection } from "./AboutSection";
