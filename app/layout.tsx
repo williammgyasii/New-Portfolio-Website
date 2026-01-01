@@ -79,9 +79,7 @@ export default function RootLayout({
           <RootLayoutContainer>
             <LoadingProvider>
               <Navigation />
-              <main className="pt-20 px-4 w-full max-w-5xl mx-auto">
-                {children}
-              </main>
+              <main className="pt-24">{children}</main>
             </LoadingProvider>
           </RootLayoutContainer>
         </ThemeProvider>
