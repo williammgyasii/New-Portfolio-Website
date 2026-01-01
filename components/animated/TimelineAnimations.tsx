@@ -26,13 +26,17 @@ interface TimelineProps {
 
 export function Timeline({ entries, className }: TimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  
+  // Track scroll progress relative to the container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"],
+    offset: ["start center", "end center"],
   });
 
-  // Animate the timeline line
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // Map scroll progress to line height - starts at 0% when first item reaches center,
+  // grows as we scroll through entries
+  const lineHeight = useTransform(scrollYProgress, [0, 0.9], ["0%", "100%"]);
 
   return (
     <div
@@ -40,9 +44,12 @@ export function Timeline({ entries, className }: TimelineProps) {
       className={cn("relative max-w-4xl mx-auto md:px-8", className)}
     >
       {/* Timeline Line positioned on the left - only on larger screens */}
-      <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300/50 hidden md:block">
+      <div 
+        ref={lineRef}
+        className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300/20 hidden md:block"
+      >
         <motion.div
-          className="w-full bg-gradient-to-b from-blue-400 to-cyan-400"
+          className="w-full bg-gradient-to-b from-blue-400 via-purple-400 to-cyan-400 origin-top"
           style={{ height: lineHeight }}
         />
       </div>
@@ -52,6 +59,7 @@ export function Timeline({ entries, className }: TimelineProps) {
           key={index}
           entry={entry}
           index={index}
+          isLast={index === entries.length - 1}
           scrollProgress={scrollYProgress}
         />
       ))}
@@ -62,46 +70,59 @@ export function Timeline({ entries, className }: TimelineProps) {
 interface TimelineItemProps {
   entry: TimelineEntry;
   index: number;
+  isLast: boolean;
   scrollProgress: any;
 }
 
-function TimelineItem({ entry, index }: TimelineItemProps) {
+function TimelineItem({ entry, index, isLast }: TimelineItemProps) {
   const itemRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(itemRef, { once: true, margin: "-100px" });
+  const isInView = useInView(itemRef, { once: true, margin: "-50px" });
 
   const { scrollYProgress: itemProgress } = useScroll({
     target: itemRef,
-    offset: ["start center", "end center"],
+    offset: ["start end", "center center"],
   });
 
+  // All items animate in as they scroll into view and stay visible
   const opacity = useTransform(
     itemProgress,
-    [0, 0.2, 0.8, 1],
-    [0.4, 1, 1, 0.4]
+    [0, 0.3, 0.6],
+    [0.3, 0.7, 1]
   );
 
-  const scale = useTransform(itemProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.9]);
+  const scale = useTransform(
+    itemProgress,
+    [0, 0.3, 0.6],
+    [0.95, 0.98, 1]
+  );
 
-  const y = useTransform(itemProgress, [0, 0.2, 0.8, 1], [30, 0, 0, -30]);
+  const x = useTransform(
+    itemProgress,
+    [0, 0.3, 0.6],
+    [20, 10, 0]
+  );
 
   return (
     <motion.div
       ref={itemRef}
-      style={{ opacity, scale, y }}
-      className="relative mb-10 md:mb-10"
+      style={{ opacity, scale, x }}
+      className={cn("relative mb-12 md:mb-16", isLast && "pb-10")}
     >
       {/* Timeline Dot positioned on the left - only on larger screens */}
       <motion.div
-        className="absolute left-8 top-6 w-3 h-3 bg-blue-400 rounded-full transform -translate-x-1/2 z-10 hidden md:block"
+        className="absolute left-8 top-6 w-4 h-4 rounded-full transform -translate-x-1/2 z-10 hidden md:block"
         initial={{ scale: 0, opacity: 0 }}
         animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
       >
+        {/* Outer glow ring */}
         <motion.div
-          className="absolute inset-0 bg-blue-400 rounded-full"
-          animate={{ scale: [1, 1.3, 1] }}
+          className="absolute inset-0 bg-blue-400/30 rounded-full"
+          animate={isInView ? { scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] } : {}}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         />
+        {/* Inner solid dot */}
+        <div className="absolute inset-1 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full" />
       </motion.div>
 
       {/* Content - full width on mobile, positioned to the right of timeline on desktop */}

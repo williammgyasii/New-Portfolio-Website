@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { person } from "./lib/content";
+import { person } from "../lib/content";
 import { Home } from "./types/content.types";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import RootLayoutContainer from "./layouts/RootLayoutContainer";
 import { Inter } from "next/font/google";
-import { baseURL } from "./lib/constants";
+import { baseURL } from "../lib/constants";
 import { LoadingProvider } from "./contexts/LoadingSpinnerProvider";
 import Navigation from "@/components/shared/Navigation";
 
@@ -92,7 +92,7 @@ export default function RootLayout({
             <LoadingProvider>
               <div className="relative z-10 flex flex-col items-center w-full justify-center">
                 <Navigation />
-                <div className="pt-20 px-4 w-full max-w-[65rem] mx-auto">
+                <div className="pt-20 px-4 w-full max-w-[70rem] mx-auto">
                   {children}
                 </div>
               </div>

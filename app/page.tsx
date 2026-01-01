@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import AnimatedText from "@/components/shared/AnimatedText";
 import AnimatedPillTags from "@/components/animated/AnimatedPill";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { person } from "./lib/content";
+import { person } from "../lib/content";
 import Link from "next/link";
 import { TextGradientScroll } from "@/components/animated/TextGradientScroll";
 import {

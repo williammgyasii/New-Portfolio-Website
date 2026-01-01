@@ -1,7 +1,7 @@
 "use client";
 import { useLoading } from "@/app/contexts/LoadingSpinnerProvider";
-import { person } from "@/app/lib/content";
-import { Projects } from "@/app/lib/projects";
+import { person } from "@/lib/content";
+import { Projects } from "@/lib/projects";
 import { capitalizeFirstLetter } from "@/app/utils/string.utils";
 import AnimatedPillTags from "@/components/animated/AnimatedPill";
 import { ProjectFabCTA } from "@/components/animated/ProjectFabAction";
@@ -185,8 +185,6 @@ export default function ProjectItem() {
         <h2 className="text-white text-2xl font-sans font-semibold mb-3">
           More Projects
         </h2>
-
-       
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Projects } from "../lib/projects";
+import { Projects } from "../../lib/projects";
 import Link from "next/link";
 import Image from "next/image";
 
