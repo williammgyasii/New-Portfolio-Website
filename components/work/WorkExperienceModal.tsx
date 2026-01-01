@@ -192,7 +192,7 @@ export function WorkExperienceModal({
 
 // Sub-components
 interface MetaInfoItemProps {
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   text: string;
   color: "blue" | "purple" | "cyan" | "green";
 }
@@ -214,7 +214,7 @@ function MetaInfoItem({ icon: Icon, text, color }: MetaInfoItemProps) {
 }
 
 interface SectionHeaderProps {
-  icon: React.ElementType;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   colorClass: string;
   iconColor: string;
@@ -229,7 +229,7 @@ function SectionHeader({
   return (
     <div className="flex items-center gap-2 mb-4">
       <div className={`p-2 rounded-xl bg-gradient-to-br ${colorClass}`}>
-        <Icon className={`w-5 h-5 ${iconColor}`} />
+        <Icon className={`w-5 h-5 ${iconColor as string}`} />
       </div>
       <h3 className="text-lg font-semibold text-white">{title}</h3>
     </div>

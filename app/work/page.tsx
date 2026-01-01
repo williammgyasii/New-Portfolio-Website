@@ -3,14 +3,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLoading } from "@/app/contexts/LoadingSpinnerProvider";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorkExperienceCard, WorkExperienceModal } from "@/components/work";
 import { WorkExperience } from "@/types/work.types";
 import { workExperiences, experienceFilters } from "@/lib/work.constants";
+import { Scene3D, Scene3DOverlay } from "@/components/3d";
 
 export default function WorkPage() {
   const [startAnimation, setStartAnimation] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [selectedType, setSelectedType] = useState("all");
   const [selectedExperience, setSelectedExperience] =
     useState<WorkExperience | null>(null);
@@ -28,6 +30,10 @@ export default function WorkPage() {
   };
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (isContentReady) {
       const timer = setTimeout(() => {
         setStartAnimation(true);
@@ -36,33 +42,42 @@ export default function WorkPage() {
     }
   }, [isContentReady]);
 
+  if (!mounted) return null;
+
   return (
-    <div ref={containerRef} className="w-full">
-      {/* Header Section */}
-      <PageHeader startAnimation={startAnimation} />
+    <div className="relative min-h-screen">
+      {/* 3D Background - Emerald theme */}
+      <Scene3D theme="emerald" />
+      <Scene3DOverlay theme="emerald" />
 
-      {/* Experience Type Filter */}
-      <ExperienceFilter
-        startAnimation={startAnimation}
-        selectedType={selectedType}
-        onTypeChange={setSelectedType}
-      />
+      {/* Content */}
+      <div ref={containerRef} className="relative z-10 w-full px-4 py-8">
+        {/* Header Section */}
+        <PageHeader startAnimation={startAnimation} />
 
-      {/* Experience Timeline */}
-      <WorkTimeline
-        experiences={filteredExperiences}
-        onReadMore={handleReadMore}
-      />
+        {/* Experience Type Filter */}
+        <ExperienceFilter
+          startAnimation={startAnimation}
+          selectedType={selectedType}
+          onTypeChange={setSelectedType}
+        />
 
-      {/* No Results */}
-      {filteredExperiences.length === 0 && <NoResultsMessage />}
+        {/* Experience Timeline */}
+        <WorkTimeline
+          experiences={filteredExperiences}
+          onReadMore={handleReadMore}
+        />
 
-      {/* Experience Modal */}
-      <WorkExperienceModal
-        experience={selectedExperience}
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-      />
+        {/* No Results */}
+        {filteredExperiences.length === 0 && <NoResultsMessage />}
+
+        {/* Experience Modal */}
+        <WorkExperienceModal
+          experience={selectedExperience}
+          open={modalOpen}
+          onOpenChange={setModalOpen}
+        />
+      </div>
     </div>
   );
 }
@@ -75,34 +90,34 @@ interface PageHeaderProps {
 function PageHeader({ startAnimation }: PageHeaderProps) {
   return (
     <motion.div
-      className="text-center mb-16"
+      className="text-center mb-16 max-w-4xl mx-auto"
       initial={{ opacity: 0, y: 30 }}
       animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
       <motion.div
-        className="inline-flex items-center gap-2 mb-4"
+        className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-500/10 border border-emerald-500/20 rounded-full"
         initial={{ scale: 0 }}
         animate={startAnimation ? { scale: 1 } : { scale: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <Briefcase className="w-6 h-6 text-blue-400" />
-        <span className="text-sm font-medium text-blue-300 uppercase tracking-wider">
-          Professional Experience
+        <Sparkles className="w-4 h-4 text-emerald-400" />
+        <span className="text-sm font-medium text-emerald-300">
+          Professional Journey
         </span>
       </motion.div>
 
       <motion.h1
-        className="text-4xl md:text-5xl font-bold text-white mb-6"
+        className="text-4xl md:text-6xl font-bold text-white mb-6"
         initial={{ opacity: 0, y: 20 }}
         animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        Work Experience
+        Work <span className="text-emerald-400">Experience</span>
       </motion.h1>
 
       <motion.p
-        className="text-lg text-white/70 max-w-2xl mx-auto"
+        className="text-lg text-white/50 max-w-2xl mx-auto"
         initial={{ opacity: 0, y: 20 }}
         animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.6, delay: 0.8 }}
@@ -148,8 +163,8 @@ function ExperienceFilter({
             variant={selectedType === filter.id ? "default" : "outline"}
             className={`flex items-center gap-2 transition-all duration-300 ${
               selectedType === filter.id
-                ? "bg-blue-500 text-white border-blue-500"
-                : "bg-transparent text-white/70 border-white/20 hover:border-blue-400 hover:text-blue-400"
+                ? "bg-emerald-500 text-white border-emerald-500"
+                : "bg-transparent text-white/70 border-white/20 hover:border-emerald-400 hover:text-emerald-400"
             }`}
           >
             <filter.icon className="w-4 h-4" />
@@ -177,11 +192,11 @@ function WorkTimeline({ experiences, onReadMore }: WorkTimelineProps) {
   const lineHeight = useTransform(scrollYProgress, [0, 0.9], ["0%", "100%"]);
 
   return (
-    <div ref={containerRef} className="relative max-w-6xl mx-auto px-4">
+    <div ref={containerRef} className="relative max-w-6xl mx-auto">
       {/* Timeline Line - Desktop only */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/20 via-purple-500/20 to-cyan-500/20 hidden lg:block">
+      <div className="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500/20 via-emerald-400/20 to-teal-500/20 hidden lg:block">
         <motion.div
-          className="w-full bg-gradient-to-b from-blue-400 via-purple-400 to-cyan-400 origin-top"
+          className="w-full bg-gradient-to-b from-emerald-400 via-teal-400 to-cyan-400 origin-top"
           style={{ height: lineHeight }}
         />
       </div>

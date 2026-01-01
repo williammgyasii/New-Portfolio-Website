@@ -83,10 +83,11 @@ export const ctaContent = {
 /**
  * Placeholder images for projects (using picsum for now)
  */
-export const projectImages = {
-  shepherdstream: "https://picsum.photos/seed/shepherd/800/600",
-  ecommerce: "https://picsum.photos/seed/ecommerce/800/600",
-  banking: "https://picsum.photos/seed/banking/800/600",
+export const projectImages: Record<string, string> = {
+  forgecms: "https://picsum.photos/seed/forgecms/800/600",
+  flavorfuse: "https://picsum.photos/seed/flavorfuse/800/600",
+  matterflow: "https://picsum.photos/seed/matterflow/800/600",
+  eventura: "https://picsum.photos/seed/eventura/800/600",
   default: "https://picsum.photos/seed/project/800/600",
 };
 

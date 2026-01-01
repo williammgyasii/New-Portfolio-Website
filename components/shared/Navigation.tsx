@@ -7,7 +7,6 @@ import {
   FileText,
   LucideIcon,
   HomeIcon,
-  Newspaper,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "./Theme-Toggle";
@@ -19,20 +18,76 @@ type NavigationLink = {
   icon: LucideIcon;
 };
 
+// Theme colors for each route
+type ThemeColors = {
+  bg: string;
+  border: string;
+  glow: string;
+};
+
+const routeThemes: Record<string, ThemeColors> = {
+  "/": {
+    bg: "bg-sky-500/20",
+    border: "border-sky-400/30",
+    glow: "shadow-sky-500/20",
+  },
+  "/about": {
+    bg: "bg-amber-500/20",
+    border: "border-amber-400/30",
+    glow: "shadow-amber-500/20",
+  },
+  "/work": {
+    bg: "bg-emerald-500/20",
+    border: "border-emerald-400/30",
+    glow: "shadow-emerald-500/20",
+  },
+  "/projects": {
+    bg: "bg-sky-500/20",
+    border: "border-sky-400/30",
+    glow: "shadow-sky-500/20",
+  },
+};
+
+const getThemeForPath = (pathname: string): ThemeColors => {
+  // Check for exact match first
+  if (routeThemes[pathname]) return routeThemes[pathname];
+
+  // Check for partial matches (e.g., /projects/something)
+  for (const route of Object.keys(routeThemes)) {
+    if (pathname.startsWith(route) && route !== "/") {
+      return routeThemes[route];
+    }
+  }
+
+  // Default theme
+  return routeThemes["/"];
+};
+
 const navigationLinks: NavigationLink[] = [
   { label: "Home", icon: HomeIcon, path: "/" },
   { label: "About", icon: User, path: "/about" },
   { label: "Work", icon: Briefcase, path: "/work" },
   { label: "Projects", icon: FileText, path: "/projects" },
-  { label: "Blog", icon: Newspaper, path: "/blog" },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
   const { scrollY } = useScroll();
+  const currentTheme = getThemeForPath(pathname);
 
   const navScale = useTransform(scrollY, [0, 100], [1, 0.95]);
   const navY = useTransform(scrollY, [0, 100], [0, -5]);
+
+  // Check if a link is active (exact match or starts with for nested routes)
+  const isLinkActive = (linkPath: string) => {
+    if (linkPath === "/") return pathname === "/";
+    return pathname === linkPath || pathname.startsWith(linkPath + "/");
+  };
+
+  // Get the theme for a specific link
+  const getLinkTheme = (linkPath: string) => {
+    return routeThemes[linkPath] || routeThemes["/"];
+  };
 
   return (
     <motion.nav
@@ -43,11 +98,16 @@ export default function Navigation() {
       transition={{ duration: 0.5, delay: 0.1 }}
     >
       <motion.div
-        className="flex items-center gap-1 px-2 py-2 bg-gray-900/80 backdrop-blur-xl border border-white/10 rounded-full shadow-2xl shadow-black/50"
+        className={cn(
+          "flex items-center gap-1 px-2 py-2 bg-gray-900/80 backdrop-blur-xl border rounded-full shadow-2xl transition-all duration-500",
+          currentTheme.border,
+          currentTheme.glow
+        )}
         whileHover={{ borderColor: "rgba(255,255,255,0.2)" }}
       >
-        {navigationLinks.map((link, idx) => {
-          const isActive = pathname === link.path;
+        {navigationLinks.map((link) => {
+          const isActive = isLinkActive(link.path);
+          const linkTheme = getLinkTheme(link.path);
           const Icon = link.icon;
 
           return (
@@ -63,10 +123,15 @@ export default function Navigation() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {/* Active background */}
+              {/* Active background with dynamic theme color */}
               {isActive && (
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full border border-white/10"
+                  className={cn(
+                    "absolute inset-0 rounded-full border shadow-lg transition-colors duration-500",
+                    linkTheme.bg,
+                    linkTheme.border,
+                    linkTheme.glow
+                  )}
                   layoutId="activeNav"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
