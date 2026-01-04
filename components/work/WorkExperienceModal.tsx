@@ -288,4 +288,3 @@ function TechBadge({ tech, index }: TechBadgeProps) {
     </motion.span>
   );
 }
-

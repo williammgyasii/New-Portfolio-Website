@@ -323,7 +323,7 @@ export const Projects = [
     outcomes:
       "Building a powerful CMS that streamlines content creation, reducing time from idea to publication by leveraging AI at every step of the writing process.",
     images: ["/images/forgecms-1.png", "/images/forgecms-2.png"],
-    link: "#",
+    link: "https://www.forgecms.io/",
   },
   {
     id: 2,
