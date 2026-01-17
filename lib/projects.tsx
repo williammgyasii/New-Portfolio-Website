@@ -12,9 +12,323 @@ import {
   SiRedis,
   SiDocker,
   SiAmazons3,
+  SiFirebase,
+  SiExpo,
 } from "react-icons/si";
 
 export const Projects = [
+  {
+    id: 5,
+    slug: "hilarm",
+    name: "Hilarm",
+    subline: "Accountability-Based Alarm App",
+    category: "mobile",
+    status: "in-progress",
+    technologies: [
+      { name: "React Native", icon: <FaReact className="w-6 h-6 text-sky-400" /> },
+      { name: "Expo", icon: <SiExpo className="w-6 h-6" /> },
+      {
+        name: "TypeScript",
+        icon: <SiTypescript className="w-6 h-6 text-blue-500" />,
+      },
+      {
+        name: "Node.js",
+        icon: <FaNodeJs className="w-6 h-6 text-green-500" />,
+      },
+      {
+        name: "PostgreSQL",
+        icon: <SiPostgresql className="w-6 h-6 text-sky-700" />,
+      },
+      {
+        name: "Firebase",
+        icon: <SiFirebase className="w-6 h-6 text-yellow-500" />,
+      },
+      {
+        name: "Tailwind CSS",
+        icon: <SiTailwindcss className="w-6 h-6 text-cyan-400" />,
+      },
+    ],
+    keyFeatures: [
+      {
+        title: "Remote Alarm Control",
+        description:
+          "Trusted contacts can stop your alarm remotely, ensuring you can't just turn it off yourself.",
+      },
+      {
+        title: "Accountability Partners",
+        description:
+          "Connect with friends, family, or accountability partners who help ensure you wake up on time.",
+      },
+      {
+        title: "Habit Building",
+        description:
+          "Build consistent wake-up habits through social reinforcement and accountability streaks.",
+      },
+      {
+        title: "Wake Verification",
+        description:
+          "Multiple verification methods to confirm you're actually awake before the alarm can be dismissed.",
+      },
+    ],
+    description:
+      "Hilarm is an accountability-based alarm app designed to help people stay consistent and avoid oversleeping. Instead of allowing users to turn off their own alarm, a trusted person must stop it for them remotely. The goal is to replace comfort and excuses with structure and accountability, helping users build better habits through social reinforcement.",
+
+    problemStatement: {
+      title: "The Snooze Button Problem",
+      description:
+        "Millions of people struggle with oversleeping despite having alarm clocks. Traditional alarms are too easy to dismiss or snooze, and the person who set the alarm (half-asleep you) is the worst judge of whether to get up. Self-accountability fails when willpower is at its lowest—right after waking up.",
+      painPoints: [
+        "Snooze buttons enable bad habits and chronic oversleeping",
+        "No consequences for turning off alarms and going back to sleep",
+        "Morning willpower is at its lowest, making self-discipline unreliable",
+        "Missed commitments due to oversleeping damage relationships and careers",
+        "Existing 'challenging' alarm apps can still be dismissed solo",
+      ],
+    },
+
+    solutionApproach: {
+      title: "Outsource Your Morning Willpower",
+      description:
+        "Hilarm removes the option of self-dismissal entirely. By requiring a trusted person to stop your alarm, you're forced to be accountable to someone other than your sleepy self.",
+      principles: [
+        {
+          title: "External Accountability",
+          description:
+            "Someone else controls your alarm, so you can't negotiate with yourself at 6 AM.",
+        },
+        {
+          title: "Social Consequences",
+          description:
+            "Letting your alarm ring means bothering your accountability partner—real social stakes.",
+        },
+        {
+          title: "Habit Formation",
+          description:
+            "Consistent wake times build sleep patterns; accountability ensures consistency happens.",
+        },
+      ],
+    },
+
+    architecture: {
+      title: "System Architecture",
+      description:
+        "Real-time mobile architecture designed for reliability—because alarm apps can't afford to fail.",
+      layers: [
+        {
+          name: "Mobile App",
+          tech: "React Native + Expo",
+          description:
+            "Cross-platform mobile app with native alarm capabilities and background processing.",
+        },
+        {
+          name: "Real-time Layer",
+          tech: "Firebase + WebSockets",
+          description:
+            "Instant notification delivery and real-time alarm status sync between users.",
+        },
+        {
+          name: "API Layer",
+          tech: "Node.js + Express",
+          description:
+            "User management, accountability pairing, and alarm scheduling logic.",
+        },
+        {
+          name: "Data Layer",
+          tech: "PostgreSQL",
+          description:
+            "User relationships, alarm history, streak tracking, and habit analytics.",
+        },
+      ],
+    },
+
+    targetAudience: {
+      primary: [
+        {
+          segment: "Chronic Oversleepers",
+          need: "A system that actually prevents going back to sleep",
+        },
+        {
+          segment: "Students",
+          need: "Make it to early classes and exams without relying on willpower",
+        },
+        {
+          segment: "Remote Workers",
+          need: "Maintain consistent schedules without office structure",
+        },
+      ],
+      secondary: [
+        {
+          segment: "Couples/Roommates",
+          need: "Help each other maintain healthy sleep schedules",
+        },
+        {
+          segment: "Fitness Enthusiasts",
+          need: "Never miss an early morning workout again",
+        },
+      ],
+    },
+
+    developmentPhases: [
+      {
+        phase: "Concept & Research",
+        duration: "1 week",
+        status: "in-progress",
+        description: "User research, competitor analysis, and core feature definition.",
+      },
+      {
+        phase: "Core Alarm System",
+        duration: "3 weeks",
+        status: "planned",
+        description: "Basic alarm functionality with remote dismissal capability.",
+      },
+      {
+        phase: "Accountability Pairing",
+        duration: "2 weeks",
+        status: "planned",
+        description: "User pairing, invitation system, and partner management.",
+      },
+      {
+        phase: "Notifications & Real-time",
+        duration: "2 weeks",
+        status: "planned",
+        description: "Push notifications and real-time alarm status sync.",
+      },
+      {
+        phase: "Beta Launch",
+        duration: "2 weeks",
+        status: "planned",
+        description: "TestFlight/Play Store beta with select users.",
+      },
+    ],
+
+    metrics: {
+      title: "Success Metrics",
+      kpis: [
+        {
+          metric: "Wake Success Rate",
+          target: "90%+",
+          description: "Users who get up on time vs. total alarm instances",
+        },
+        {
+          metric: "Streak Length",
+          target: "14+ days avg",
+          description: "Average consecutive days of successful wake-ups",
+        },
+        {
+          metric: "Partner Retention",
+          target: "80%+",
+          description: "Accountability pairs that stay active after 30 days",
+        },
+        {
+          metric: "Daily Active Users",
+          target: "70%+",
+          description: "Users who use the app every day",
+        },
+      ],
+    },
+
+    futureRoadmap: [
+      {
+        feature: "Group Accountability",
+        timeline: "Q2 2026",
+        description: "Accountability circles for groups of friends or teams.",
+      },
+      {
+        feature: "Smart Wake Windows",
+        timeline: "Q2 2026",
+        description: "Integration with sleep tracking to wake during light sleep phases.",
+      },
+      {
+        feature: "Gamification",
+        timeline: "Q3 2026",
+        description: "Leaderboards, achievements, and rewards for consistency.",
+      },
+      {
+        feature: "Calendar Integration",
+        timeline: "Q3 2026",
+        description: "Auto-set alarms based on calendar events and commute time.",
+      },
+    ],
+
+    designDecisions: [
+      {
+        decision: "Remote-Only Dismissal",
+        reasoning:
+          "The core value proposition requires removing self-dismissal entirely. Any way to turn off your own alarm defeats the purpose of accountability.",
+      },
+      {
+        decision: "Firebase for Real-time",
+        reasoning:
+          "Alarm notifications must be instantaneous and reliable. Firebase provides proven infrastructure for critical real-time mobile communication.",
+      },
+      {
+        decision: "Expo for Development",
+        reasoning:
+          "Faster iteration with Expo's managed workflow while maintaining access to native alarm APIs through custom native modules.",
+      },
+    ],
+
+    securityConsiderations: [
+      {
+        area: "Partner Verification",
+        implementation: "Mutual consent required to establish accountability partnerships",
+      },
+      {
+        area: "Privacy Controls",
+        implementation: "Users control what sleep data is shared with partners",
+      },
+      {
+        area: "Abuse Prevention",
+        implementation: "Rate limiting and blocking features to prevent harassment",
+      },
+      {
+        area: "Data Security",
+        implementation: "End-to-end encryption for partner communications",
+      },
+    ],
+
+    integrations: [
+      {
+        name: "Firebase",
+        purpose: "Push notifications and real-time sync",
+        status: "planned",
+      },
+      {
+        name: "Apple Health",
+        purpose: "Sleep tracking data integration",
+        status: "planned",
+      },
+      {
+        name: "Google Fit",
+        purpose: "Android sleep and activity data",
+        status: "planned",
+      },
+      {
+        name: "Calendar APIs",
+        purpose: "Smart alarm scheduling based on events",
+        status: "planned",
+      },
+    ],
+
+    challengesAndLearning: {
+      challenges: [
+        "Building reliable background alarm functionality across iOS and Android platforms.",
+        "Ensuring real-time notifications are delivered instantly for time-critical alarm dismissal.",
+        "Designing accountability mechanics that motivate without enabling toxic dynamics.",
+        "Handling edge cases like partners being unavailable or timezone differences.",
+      ],
+      learning: [
+        "Exploring React Native native module development for alarm capabilities.",
+        "Learning real-time mobile architecture patterns for critical notifications.",
+        "Researching behavioral psychology around habit formation and accountability.",
+        "Understanding mobile OS limitations around background processing and alarms.",
+      ],
+    },
+    outcomes:
+      "Building an app that transforms wake-up accountability from a solo struggle into a shared commitment, helping users build consistent habits through the power of social reinforcement.",
+    images: ["/images/hilarm-1.png", "/images/hilarm-2.png"],
+    link: "https://hialarm.app/",
+  },
   {
     id: 1,
     slug: "forgecms",
