@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import RootLayoutContainer from "./layouts/RootLayoutContainer";
 import { LoadingProvider } from "./contexts/LoadingSpinnerProvider";
 import Navigation from "@/components/shared/Navigation";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -83,6 +84,7 @@ export default function RootLayout({
             </LoadingProvider>
           </RootLayoutContainer>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
